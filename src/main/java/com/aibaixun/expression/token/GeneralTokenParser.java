@@ -1,12 +1,12 @@
 package com.aibaixun.expression.token;
 
-public class GenericTokenParser {
+public class GeneralTokenParser {
 
     private final String openToken;
     private final String closeToken;
     private final TokenHandler handler;
 
-    public GenericTokenParser(String openToken, String closeToken, TokenHandler handler) {
+    public GeneralTokenParser(String openToken, String closeToken, TokenHandler handler) {
         this.openToken = openToken;
         this.closeToken = closeToken;
         this.handler = handler;
@@ -16,7 +16,6 @@ public class GenericTokenParser {
         if (text == null || text.isEmpty()) {
             return "";
         }
-        // search open token
         int start = text.indexOf(openToken);
         if (start == -1) {
             return text;
@@ -27,11 +26,9 @@ public class GenericTokenParser {
         StringBuilder expression = null;
         do {
             if (start > 0 && src[start - 1] == '\\') {
-                // this open token is escaped. remove the backslash and continue.
                 builder.append(src, offset, start - offset - 1).append(openToken);
                 offset = start + openToken.length();
             } else {
-                // found open token. let's search close token.
                 if (expression == null) {
                     expression = new StringBuilder();
                 } else {
@@ -42,7 +39,6 @@ public class GenericTokenParser {
                 int end = text.indexOf(closeToken, offset);
                 while (end > -1) {
                     if (end > offset && src[end - 1] == '\\') {
-                        // this close token is escaped. remove the backslash and continue.
                         expression.append(src, offset, end - offset - 1).append(closeToken);
                         offset = end + closeToken.length();
                         end = text.indexOf(closeToken, offset);
@@ -52,7 +48,6 @@ public class GenericTokenParser {
                     }
                 }
                 if (end == -1) {
-                    // close token was not found.
                     builder.append(src, start, src.length - start);
                     offset = src.length;
                 } else {
