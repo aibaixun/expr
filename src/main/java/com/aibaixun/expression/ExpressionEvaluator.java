@@ -4,8 +4,10 @@ package com.aibaixun.expresstion;
 import com.aibaixun.expresstion.exception.ExpressException;
 import com.aibaixun.expresstion.node.ExpressNode;
 
+import java.util.List;
 
-public class ExpressionEvaluator implements Evaluator{
+
+public class ExpressionEvaluator {
 
 
     private final ExpressInstructionSetCache expressInstructionSetCache;
@@ -18,7 +20,7 @@ public class ExpressionEvaluator implements Evaluator{
         this.expressionParse = expressionParse;
     }
 
-    @Override
+
     public Object execute(String evaExpression, ExpressContext<String, Object> expressContext, boolean isCache, boolean isTrace)throws Exception {
         InstructionSet parseResult ;
         if (isCache){
@@ -48,7 +50,7 @@ public class ExpressionEvaluator implements Evaluator{
      * @return Object
      * @throws Exception  异常信息
      */
-    private Object execute(InstructionSet parseResult, ExpressContext<String, Object> expressContext,  boolean isTrace)throws Exception {
+    public Object execute(InstructionSet parseResult, ExpressContext<String, Object> expressContext,  boolean isTrace)throws Exception {
        return InstructionSetRunner.execute(parseResult,expressContext,isTrace);
     }
 
@@ -61,21 +63,20 @@ public class ExpressionEvaluator implements Evaluator{
     private InstructionSet parseInstructionSet(String expression){
         try {
             ExpressNode root = expressionParse.parse( expression);
-            return createInstructionSet(root, "main");
-        } catch (ExpressException e) {
-            throw e;
+            return createInstructionSet(root);
         } catch (Exception e) {
             throw new ExpressException("编译异常:\n" + expression, e);
         }
     }
 
-    public InstructionSet createInstructionSet(ExpressNode root, String type) throws Exception {
-        InstructionSet result = new InstructionSet(type);
-        createInstructionSet(root, result);
+    public InstructionSet createInstructionSet(ExpressNode root) {
+        InstructionSet result = new InstructionSet(root.getName());
+        List<ExpressNode> children = root.getChildren();
+        for (ExpressNode tempNode : children){
+            result.addInstructionSet(createInstructionSet(tempNode));
+        }
         return result;
     }
 
-    public void createInstructionSet(ExpressNode root, InstructionSet result) throws Exception {
 
-    }
 }
