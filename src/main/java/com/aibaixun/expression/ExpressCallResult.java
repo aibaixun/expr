@@ -13,6 +13,10 @@ public class ExpressCallResult {
         this.returnValue = returnValue;
         this.isExit = isExit;
     }
+    
+      public static ExpressCallResult empty() {
+        return new ExpressCallResult(null,true);
+    }
 
     public void clear() {
         this.returnValue = null;
