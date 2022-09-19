@@ -4,20 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpressNode {
-    
+
     private ExpressNodeType nodeType;
 
     private final String expression;
-    
+
+    private final String name;
+
     private final List<ExpressNode> children = new ArrayList<>();
 
-    public ExpressNode(ExpressNodeType nodeType, String expression) {
+    public ExpressNode(ExpressNodeType nodeType, String expression,String name) {
         this.nodeType = nodeType;
         this.expression = expression;
+        this.name = name;
     }
-    
-    public ExpressNode createExpressNode(ExpressNodeType expressNodeType, String expression) {
-        return new ExpressNode(expressNodeType, expression);
+
+    public ExpressNode createExpressNode(ExpressNodeType expressNodeType, String expression,String name) {
+        return new ExpressNode(expressNodeType, expression,name);
     }
 
     private void addChild(ExpressNode child) {
@@ -41,5 +44,9 @@ public class ExpressNode {
 
     public List<ExpressNode> getChildren() {
         return children;
+    }
+
+    public String getName() {
+        return name;
     }
 }
