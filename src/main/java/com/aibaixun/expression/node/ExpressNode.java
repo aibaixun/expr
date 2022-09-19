@@ -3,51 +3,43 @@ package com.aibaixun.expresstion.node;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpressNode implements ExpressDataNode{
-
-
+public class ExpressNode {
+    
     private ExpressNodeType nodeType;
 
-    private final String value;
+    private final String expression;
+    
+    private final List<ExpressNode> children = new ArrayList<>();
 
-    private Object objectValue;
-
-    private final List<ExpressDataNode> children = new ArrayList<>();
-
-    public ExpressNode(ExpressNodeType nodeType, String value) {
+    public ExpressNode(ExpressNodeType nodeType, String expression) {
         this.nodeType = nodeType;
-        this.value = value;
+        this.expression = expression;
+    }
+    
+    public ExpressNode createExpressNode(ExpressNodeType expressNodeType, String expression) {
+        return new ExpressNode(expressNodeType, expression);
     }
 
-    @Override
-    public void setNodeType(ExpressNodeType expressNodeType) {
-        this.nodeType = expressNodeType;
-    }
-
-    @Override
-    public ExpressNodeType getNodeType(ExpressNodeType expressNodeType) {
-        return nodeType;
-    }
-
-    @Override
-    public void setChild(ExpressDataNode ref) {
-        this.addChild(ref);
-    }
-
-    @Override
-    public String getValue() {
-        return value;
-    }
-
-    @Override
-    public ExpressDataNode createExpressNode(ExpressNodeType expressNodeType, String expression) {
-        return new ExpressNode(expressNodeType, value);
-    }
-
-    private void addChild(ExpressDataNode child) {
+    private void addChild(ExpressNode child) {
         if (child == null) {
             return;
         }
         this.children.add(child);
+    }
+
+    public ExpressNodeType getNodeType() {
+        return nodeType;
+    }
+
+    public void setNodeType(ExpressNodeType nodeType) {
+        this.nodeType = nodeType;
+    }
+
+    public String getExpression() {
+        return expression;
+    }
+
+    public List<ExpressNode> getChildren() {
+        return children;
     }
 }
