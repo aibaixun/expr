@@ -1,5 +1,7 @@
 package com.aibaixun.expression.token;
-
+/**
+* token parser
+*/
 public class GeneralTokenParser {
 
     private final String openToken;
