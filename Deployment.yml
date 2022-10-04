@@ -1,0 +1,61 @@
+kind: "Deployment"
+apiVersion: "apps/v1"
+metadata:
+  name: "expr"
+  namespace: "dev"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "expr"
+  template:
+    metadata:
+      labels:
+        app: "expre"
+      annotations:
+        tagrandom: "20220824214539"
+    spec:
+      volumes:
+        - name: "csm-volume-20220825103540"
+          configMap:
+            name: "lowcode-service-orchestraction-engine"
+            items:
+              - key: "application.yml"
+                path: "application.yml"
+            defaultMode: 420
+      containers:
+        - name: "expr"
+          image: "expr:v1"
+          ports:
+            - name: "http"
+              containerPort: 80
+              protocol: "TCP"
+          env:
+            - name: "TZ"
+              value: "Asia/Shanghai"
+          resources:
+            limits:
+              cpu: "4"
+              memory: "3000Mi"
+            requests:
+              cpu: "500m"
+              memory: "1000Mi"
+          volumeMounts:
+            - name: "csm-volume-20220825103540"
+              readOnly: true
+              mountPath: "/config"
+          terminationMessagePath: "/dev/termination-log"
+          terminationMessagePolicy: "File"
+          imagePullPolicy: "Always"
+      restartPolicy: "Always"
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: "ClusterFirst"
+      securityContext: {}
+      schedulerName: "default-scheduler"
+  strategy:
+    type: "RollingUpdate"
+    rollingUpdate:
+      maxUnavailable: "25%"
+      maxSurge: "25%"
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
