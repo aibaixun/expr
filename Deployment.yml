@@ -16,9 +16,9 @@ spec:
         tagrandom: "20220824214539"
     spec:
       volumes:
-        - name: "csm-volume-20220825103540"
+        - name: "expr"
           configMap:
-            name: "lowcode-service-orchestraction-engine"
+            name: "expr"
             items:
               - key: "application.yml"
                 path: "application.yml"
@@ -41,7 +41,7 @@ spec:
               cpu: "500m"
               memory: "1000Mi"
           volumeMounts:
-            - name: "csm-volume-20220825103540"
+            - name: "expr"
               readOnly: true
               mountPath: "/config"
           terminationMessagePath: "/dev/termination-log"
