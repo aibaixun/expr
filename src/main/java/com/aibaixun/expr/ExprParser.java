@@ -6,4 +6,11 @@ package com.aibaixun.expr;
  * date 2022/10/8
  */
 public interface ExprParser {
+
+    /**
+     * Parses the string expression
+     * @param expression string expression
+     * @return  instanceof Expr
+     */
+    Expr parseExpression(String expression);
 }
