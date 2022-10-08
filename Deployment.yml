@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        app: "expre"
+        app: "expr"
       annotations:
         tagrandom: "20220824214539"
     spec:
@@ -26,10 +26,6 @@ spec:
       containers:
         - name: "expr"
           image: "expr:v1"
-          ports:
-            - name: "http"
-              containerPort: 80
-              protocol: "TCP"
           env:
             - name: "TZ"
               value: "Asia/Shanghai"
