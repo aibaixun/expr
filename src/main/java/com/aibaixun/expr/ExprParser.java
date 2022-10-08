@@ -8,9 +8,21 @@ package com.aibaixun.expr;
 public interface ExprParser {
 
     /**
-     * Parses the string expression
-     * @param expression string expression
-     * @return  instanceof Expr
+     * 解析表达式
+     * 使用默认的解析上下文
+     * @param expression 表达式内容
+     * @return  Expr 实例
+     * @throws ExprParserException  exception
      */
-    Expr parseExpression(String expression);
+    Expr parseExpression(String expression) throws ExprParserException;
+
+
+    /**
+     * 解析表达式
+     * @param expression 表达式内容
+     * @param context 解析上下文
+     * @return  Expr 实例
+     * @throws ExprParserException  exception
+     */
+    Expr parseExpression(String expression,ExprParserContext context) throws ExprParserException;
 }
