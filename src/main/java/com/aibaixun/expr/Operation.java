@@ -6,4 +6,35 @@ package com.aibaixun.expr;
  * date 2022/10/8
  */
 public enum Operation {
+
+    /**
+     * ADD operation
+     */
+    ADD,
+
+    /**
+     * SUB operation
+     */
+    SUB,
+
+    /**
+     * DIVIDE operation
+     */
+    DIVIDE,
+
+    /**
+     * Multiply operation
+     */
+    MULTIPLY,
+
+    /**
+     * MODULUS operation
+     */
+    MODULUS,
+
+    /**
+     * POWER operation
+     */
+    POWER
+
 }
