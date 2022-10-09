@@ -5,26 +5,29 @@ import com.aibaixun.expr.EvalExprException;
 import com.aibaixun.expr.Expr;
 
 /**
- * 确切的表达式
+ * 组合的 expr
  * @author wang xiao
- * date 2022/10/8
+ * date 2022/10/9
  */
-public class LiteralExpr implements Expr {
+public class CombineExpr implements Expr {
 
-    private final String literal;
+    private final String expression;
 
-    public LiteralExpr(String literal) {
-        this.literal = literal;
+    private final Expr[] exprArray;
+
+    public CombineExpr(String expression, Expr[] exprArray) {
+        this.expression = expression;
+        this.exprArray = exprArray;
     }
 
     @Override
     public String getExpression() {
-        return literal;
+        return expression;
     }
 
     @Override
-    public String getValue() throws EvalExprException {
-        return literal;
+    public Object getValue() throws EvalExprException {
+        return null;
     }
 
     @Override
@@ -64,22 +67,22 @@ public class LiteralExpr implements Expr {
 
     @Override
     public Class<?> getValueType() throws EvalExprException {
-        return String.class;
+        return null;
     }
 
     @Override
     public Class<?> getValueType(EvalExprContext context) throws EvalExprException {
-        return String.class;
+        return null;
     }
 
     @Override
     public Class<?> getValueType(Object rootObj) throws EvalExprException {
-        return String.class;
+        return null;
     }
 
     @Override
     public Class<?> getValueType(EvalExprContext context, Object rootObj) throws EvalExprException {
-        return String.class;
+        return null;
     }
 
     @Override
@@ -94,16 +97,16 @@ public class LiteralExpr implements Expr {
 
     @Override
     public void writeValue(EvalExprContext context, Object value) {
-        throw new EvalExprException(this.literal,"Can`t writeValue on LiteralExpr");
+
     }
 
     @Override
     public void writeValue(Object rootObj, Object value) {
-        throw new EvalExprException(this.literal,"Can`t writeValue on LiteralExpr");
+
     }
 
     @Override
     public void writeValue(EvalExprContext context, Object rootObj, Object value) {
-        throw new EvalExprException(this.literal,"Can`t writeValue on LiteralExpr");
+
     }
 }
