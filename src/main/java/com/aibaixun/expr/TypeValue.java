@@ -1,4 +1,4 @@
-package com.aibaixun.expr.type;
+package com.aibaixun.expr;
 
 /**
  * @author wang xiao
@@ -6,15 +6,9 @@ package com.aibaixun.expr.type;
  */
 public class TypeValue {
 
-    public static final TypeValue NIL = new TypeValue(null);
-
     private final Object value;
 
     public TypeValue(Object value) {
         this.value = value;
-    }
-
-    public Object getValue() {
-        return value;
     }
 }

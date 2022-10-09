@@ -3,6 +3,10 @@ package com.aibaixun.expr.common;
 import com.aibaixun.expr.EvalExprContext;
 import com.aibaixun.expr.EvalExprException;
 import com.aibaixun.expr.Expr;
+import com.aibaixun.expr.TypeValue;
+import com.aibaixun.expr.util.ExprUtil;
+
+import java.util.Objects;
 
 /**
  * 组合的 expr
@@ -26,63 +30,95 @@ public class CombineExpr implements Expr {
     }
 
     @Override
-    public Object getValue() throws EvalExprException {
-        return null;
+    public String getValue() throws EvalExprException {
+        StringBuilder sb = new StringBuilder();
+        for (Expr expr : exprArray) {
+            String value = expr.getValue(String.class);
+            if (Objects.nonNull(value)){
+                sb.append(value);
+            }
+        }
+        return sb.toString();
     }
 
     @Override
     public <T> T getValue(Class<T> tClass) throws EvalExprException {
-        return null;
+        Object value  = getValue() ;
+        return ExprUtil.convertValue(null,new TypeValue(value),tClass);
     }
 
     @Override
     public Object getValue(Object rootObj) throws EvalExprException {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        for (Expr expr : exprArray) {
+            String value = expr.getValue(rootObj,String.class);
+            if (Objects.nonNull(value)){
+                sb.append(value);
+            }
+        }
+        return sb.toString();
     }
 
     @Override
     public <T> T getValue(Object rootObj, Class<T> tClass) throws EvalExprException {
-        return null;
+        Object value  = getValue(rootObj) ;
+        return ExprUtil.convertValue(null,new TypeValue(value),tClass);
     }
 
     @Override
     public Object getValue(EvalExprContext context) throws EvalExprException {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        for (Expr expr : exprArray) {
+            String value = expr.getValue(context,String.class);
+            if (Objects.nonNull(value)){
+                sb.append(value);
+            }
+        }
+        return sb.toString();
     }
 
     @Override
     public Object getValue(EvalExprContext context, Object rootObj) throws EvalExprException {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        for (Expr expr : exprArray) {
+            String value = expr.getValue(context,rootObj,String.class);
+            if (Objects.nonNull(value)){
+                sb.append(value);
+            }
+        }
+        return sb.toString();
     }
 
     @Override
     public <T> T getValue(EvalExprContext context, Class<T> tClass) throws EvalExprException {
-        return null;
+        Object value  = getValue(context) ;
+        return ExprUtil.convertValue(null,new TypeValue(value),tClass);
     }
 
     @Override
     public <T> T getValue(EvalExprContext context, Object rootObj, Class<T> tClass) throws EvalExprException {
-        return null;
+        Object value  = getValue(context,rootObj) ;
+        return ExprUtil.convertValue(null,new TypeValue(value),tClass);
     }
 
     @Override
     public Class<?> getValueType() throws EvalExprException {
-        return null;
+        return String.class;
     }
 
     @Override
     public Class<?> getValueType(EvalExprContext context) throws EvalExprException {
-        return null;
+        return String.class;
     }
 
     @Override
     public Class<?> getValueType(Object rootObj) throws EvalExprException {
-        return null;
+        return String.class;
     }
 
     @Override
     public Class<?> getValueType(EvalExprContext context, Object rootObj) throws EvalExprException {
-        return null;
+        return String.class;
     }
 
     @Override
@@ -97,16 +133,16 @@ public class CombineExpr implements Expr {
 
     @Override
     public void writeValue(EvalExprContext context, Object value) {
-
+        throw new EvalExprException(this.expression,"Can`t writeValue on CombineExpr");
     }
 
     @Override
     public void writeValue(Object rootObj, Object value) {
-
+        throw new EvalExprException(this.expression,"Can`t writeValue on CombineExpr");
     }
 
     @Override
     public void writeValue(EvalExprContext context, Object rootObj, Object value) {
-
+        throw new EvalExprException(this.expression,"Can`t writeValue on CombineExpr");
     }
 }

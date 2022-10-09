@@ -3,6 +3,8 @@ package com.aibaixun.expr.common;
 import com.aibaixun.expr.EvalExprContext;
 import com.aibaixun.expr.EvalExprException;
 import com.aibaixun.expr.Expr;
+import com.aibaixun.expr.TypeValue;
+import com.aibaixun.expr.util.ExprUtil;
 
 /**
  * 确切的表达式
@@ -29,37 +31,41 @@ public class LiteralExpr implements Expr {
 
     @Override
     public <T> T getValue(Class<T> tClass) throws EvalExprException {
-        return null;
+        String value = getValue();
+        return ExprUtil.convertValue(null,new TypeValue(value),tClass);
     }
 
     @Override
-    public Object getValue(Object rootObj) throws EvalExprException {
-        return null;
+    public String getValue(Object rootObj) throws EvalExprException {
+        return literal;
     }
 
     @Override
     public <T> T getValue(Object rootObj, Class<T> tClass) throws EvalExprException {
-        return null;
+        Object value =  getValue(rootObj);
+        return ExprUtil.convertValue(null,new TypeValue(value),tClass);
     }
 
     @Override
     public Object getValue(EvalExprContext context) throws EvalExprException {
-        return null;
+        return literal;
     }
 
     @Override
     public Object getValue(EvalExprContext context, Object rootObj) throws EvalExprException {
-        return null;
+        return literal;
     }
 
     @Override
     public <T> T getValue(EvalExprContext context, Class<T> tClass) throws EvalExprException {
-        return null;
+       Object value = getValue(context);
+       return ExprUtil.convertValue(null,new TypeValue(value),tClass);
     }
 
     @Override
     public <T> T getValue(EvalExprContext context, Object rootObj, Class<T> tClass) throws EvalExprException {
-        return null;
+        Object value = getValue(context,rootObj);
+        return ExprUtil.convertValue(null,new TypeValue(value),tClass);
     }
 
     @Override
