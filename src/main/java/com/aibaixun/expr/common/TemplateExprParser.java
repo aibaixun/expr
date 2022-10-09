@@ -71,7 +71,7 @@ public abstract class TemplateExprParser implements ExprParser {
      * @throws ExprParserException exception
      */
     private Expr [] parseExpressions(String expression, ExprParserContext context) throws ExprParserException {
-        List<Expr> exprList = new ArrayList<Expr>();
+        List<Expr> exprList = new ArrayList<>();
         String prefix = context.getExpressionPrefix();
         String suffix = context.getExpressionSuffix();
         int startInx = 0;
@@ -85,7 +85,7 @@ public abstract class TemplateExprParser implements ExprParser {
                 int afterPrefixInx =  prefixInx + prefix.length();
                 int suffixInx = findSuffix(suffix,expression,afterPrefixInx);
                 if (suffixInx == -1){
-                    throw new ExprParserException(expression,"No find suffix found for expression starting at"+ afterPrefixInx);
+                    throw new ExprParserException(expression,"Cannot found suffix at pos "+ afterPrefixInx);
                 }
                 if (suffixInx ==  afterPrefixInx){
                     throw new ExprParserException(expression,"No find suffix found for expression starting at"+ afterPrefixInx);
@@ -120,7 +120,7 @@ public abstract class TemplateExprParser implements ExprParser {
         if (nextSuffix == -1){
             return -1;
         }
-        Deque<Bracket> stack = new ArrayDeque<>();
+        Deque<CharBracket> stack = new ArrayDeque<>();
         while (pos < maxLen) {
             if (isSuffixHere(expression,pos,suffix) && stack.isEmpty()) {
                 break;
@@ -130,24 +130,24 @@ public abstract class TemplateExprParser implements ExprParser {
                 case '{':
                 case '(':
                 case '[':
-                    stack.push(new Bracket(c,pos));
+                    stack.push(new CharBracket(c,pos));
                     break;
                 case '}':
                 case ']':
                 case ')':
                     if (stack.isEmpty()){
-                        throw new ExprParserException(expression,"No find suffix found for expression starting at");
+                        throw new ExprParserException(expression,"Found Close at "+pos+" without an opening "+ CharBracket.theOpenBracketFor(c),pos);
                     }
-                    Bracket pop = stack.pop();
+                    CharBracket pop = stack.pop();
                     if (!pop.compatibleWithCloseBracket(c)){
-                        throw new ExprParserException(expression,"No find suffix found for expression starting at");
+                        throw new ExprParserException(expression,"Found Close at "+pos+" without an opening ",pos);
                     }
                     break;
                 case '\'':
                 case '\"':
                     int endLiteral = expression.indexOf(c,pos+1);
                     if (endLiteral == -1){
-                        throw new ExprParserException(expression,"No find suffix found for expression starting at");
+                        throw new ExprParserException(expression,"Found non terminating string literal Staring  at "+pos,pos);
                     }
                     pos = endLiteral;
                     break;
@@ -157,8 +157,7 @@ public abstract class TemplateExprParser implements ExprParser {
             pos++;
         }
         if (!stack.isEmpty()){
-            Bracket pop = stack.pop();
-            throw new ExprParserException(expression,"No find suffix found for expression starting at");
+            throw new ExprParserException(expression,"Missing closing bracket at position "+pos);
         }
         if (!isSuffixHere(expression,pos,suffix)){
             return -1;
@@ -173,55 +172,7 @@ public abstract class TemplateExprParser implements ExprParser {
                 return false;
             }
         }
-        if (suffixPosition != suffix.length()){
-            return false;
-        }
-        return true;
+        return suffixPosition == suffix.length();
     }
 
-
-    private static class Bracket {
-        char bracket;
-
-        int pos;
-
-        public Bracket(char bracket, int pos) {
-            this.bracket = bracket;
-            this.pos = pos;
-        }
-
-        boolean compatibleWithCloseBracket(char closeBracket){
-            switch (this.bracket){
-                case '{':
-                    return closeBracket == '}';
-                case '[':
-                    return closeBracket == ']';
-                default:
-                    return closeBracket == ')';
-
-            }
-        }
-
-        static char theOpenBracketFor(char closeBracket){
-            switch (closeBracket){
-                case ']':
-                    return ']';
-                case '}':
-                    return '{';
-                default:
-                    return '(';
-            }
-        }
-
-        static char theCloseBracketFor(char openBracket){
-            switch (openBracket){
-                case '{':
-                    return '}';
-                case '[':
-                    return ']';
-                default:
-                    return ')';
-            }
-        }
-    }
 }
