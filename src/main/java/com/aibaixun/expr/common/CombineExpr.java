@@ -3,7 +3,7 @@ package com.aibaixun.expr.common;
 import com.aibaixun.expr.EvalExprContext;
 import com.aibaixun.expr.EvalExprException;
 import com.aibaixun.expr.Expr;
-import com.aibaixun.expr.TypeValue;
+import com.aibaixun.expr.type.TypeValue;
 import com.aibaixun.expr.util.ExprUtil;
 
 import java.util.Objects;

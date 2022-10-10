@@ -1,4 +1,4 @@
-package com.aibaixun.expr;
+package com.aibaixun.expr.type;
 
 /**
  * @author wang xiao
@@ -10,5 +10,9 @@ public class TypeValue {
 
     public TypeValue(Object value) {
         this.value = value;
+    }
+
+    public Object getValue() {
+        return value;
     }
 }
