@@ -18,7 +18,7 @@ public abstract class ExprUtil {
             return (T) value;
         }
         if (Objects.nonNull(context)){
-            context.getTypeConverter().convertValue(value, typeValue, targetType);
+            context.getTypeConverter().convertValue(value, null, null);
         }
         return null;
     }
@@ -56,11 +56,12 @@ public abstract class ExprUtil {
     }
 
     private static <T> T convertValue(TypeConverter typeConverter, TypeValue TypeValue, Class<T> targetType) {
-        Object result = typeConverter.convertValue(TypeValue.getValue(), TypeValue.getTypeDescriptor(), TypeDescriptor.valueOf(targetType));
-        if (result == null) {
-            throw new IllegalStateException("Null conversion result for value [" + TypeValue.getValue() + "]");
-        } else {
-            return result;
-        }
+//        Object result = typeConverter.convertValue(TypeValue.getValue(), TypeValue.getTypeDescriptor(), TypeDescriptor.valueOf(targetType));
+//        if (result == null) {
+//            throw new IllegalStateException("Null conversion result for value [" + TypeValue.getValue() + "]");
+//        } else {
+//            return result;
+//        }
+        return null;
     }
 }
