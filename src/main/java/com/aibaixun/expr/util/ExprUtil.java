@@ -1,8 +1,7 @@
 package com.aibaixun.expr.util;
 
 import com.aibaixun.expr.EvalExprContext;
-import com.aibaixun.expr.type.TypeConverter;
-import com.aibaixun.expr.type.TypeValue;
+import com.aibaixun.expr.TypeConverter;
 
 import java.util.Objects;
 
@@ -12,56 +11,56 @@ import java.util.Objects;
  */
 public abstract class ExprUtil {
 
-    public static <T> T convertValue(EvalExprContext context, TypeValue typeValue,Class<?> targetType){
-        Object value = typeValue.getValue();
+    public static <T> T convertValue(EvalExprContext context,Object source,Class<?> targetType){
+
         if (Objects.isNull(targetType)){
-            return (T) value;
+            return (T) source;
         }
         if (Objects.nonNull(context)){
-            context.getTypeConverter().convertValue(value, null, null);
+            context.getTypeConverter().convertValue(source, targetType);
         }
-        return null;
+        return (T)source;
     }
 
-    public static int toInt(TypeConverter typeConverter, TypeValue TypeValue) {
-        return convertValue(typeConverter, TypeValue, Integer.class);
+
+    public static Integer toInt(TypeConverter typeConverter, Object source) {
+        return convertValue(typeConverter, source, Integer.class);
     }
 
-    public static boolean toBoolean(TypeConverter typeConverter, TypeValue TypeValue) {
-        return convertValue(typeConverter, TypeValue, Boolean.class);
+    public static Boolean toBoolean(TypeConverter typeConverter, Object source) {
+        return convertValue(typeConverter, source, Boolean.class);
     }
 
-    public static double toDouble(TypeConverter typeConverter, TypeValue TypeValue) {
-        return convertValue(typeConverter, TypeValue, Double.class);
+    public static Double toDouble(TypeConverter typeConverter, Object source) {
+        return convertValue(typeConverter, source, Double.class);
     }
 
-    public static long toLong(TypeConverter typeConverter, TypeValue TypeValue) {
-        return convertValue(typeConverter, TypeValue, Long.class);
+    public static Long toLong(TypeConverter typeConverter, Object source) {
+        return convertValue(typeConverter, source, Long.class);
     }
 
-    public static char toChar(TypeConverter typeConverter, TypeValue TypeValue) {
-        return convertValue(typeConverter, TypeValue, Character.class);
+    public static Character toChar(TypeConverter typeConverter, Object source) {
+        return convertValue(typeConverter, source, Character.class);
     }
 
-    public static short toShort(TypeConverter typeConverter, TypeValue TypeValue) {
-        return convertValue(typeConverter, TypeValue, Short.class);
+    public static Short toShort(TypeConverter typeConverter, Object source) {
+        return convertValue(typeConverter, source, Short.class);
     }
 
-    public static float toFloat(TypeConverter typeConverter, TypeValue TypeValue) {
-        return convertValue(typeConverter, TypeValue, Float.class);
+    public static Float toFloat(TypeConverter typeConverter, Object source) {
+        return convertValue(typeConverter, source, Float.class);
     }
 
-    public static byte toByte(TypeConverter typeConverter, TypeValue TypeValue) {
-        return convertValue(typeConverter, TypeValue, Byte.class);
+    public static Byte toByte(TypeConverter typeConverter, Object source) {
+        return convertValue(typeConverter, source, Byte.class);
     }
 
-    private static <T> T convertValue(TypeConverter typeConverter, TypeValue TypeValue, Class<T> targetType) {
-//        Object result = typeConverter.convertValue(TypeValue.getValue(), TypeValue.getTypeDescriptor(), TypeDescriptor.valueOf(targetType));
-//        if (result == null) {
-//            throw new IllegalStateException("Null conversion result for value [" + TypeValue.getValue() + "]");
-//        } else {
-//            return result;
-//        }
-        return null;
+    private static <T> T convertValue(TypeConverter typeConverter, Object source, Class<T> targetType) {
+        Object result = typeConverter.convertValue(source, targetType);
+        if (result == null) {
+            throw new IllegalStateException("Null conversion result for value [" + source + "]");
+        } else {
+            return (T)result;
+        }
     }
 }
