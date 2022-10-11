@@ -5,7 +5,7 @@ package com.aibaixun.expr;
  * @author wang xiao
  * date 2022/10/8
  */
-public interface EvalExprContext {
+public interface ExprEvalContext {
 
     /**
      * 获取类型转换器

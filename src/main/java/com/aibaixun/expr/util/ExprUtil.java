@@ -1,6 +1,6 @@
 package com.aibaixun.expr.util;
 
-import com.aibaixun.expr.EvalExprContext;
+import com.aibaixun.expr.ExprEvalContext;
 import com.aibaixun.expr.TypeConverter;
 
 import java.util.Objects;
@@ -11,7 +11,7 @@ import java.util.Objects;
  */
 public abstract class ExprUtil {
 
-    public static <T> T convertValue(EvalExprContext context,Object source,Class<?> targetType){
+    public static <T> T convertValue(ExprEvalContext context, Object source, Class<?> targetType){
 
         if (Objects.isNull(targetType)){
             return (T) source;
