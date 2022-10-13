@@ -3,6 +3,7 @@ package com.aibaixun.expr.common;
 import com.aibaixun.expr.TypeConverter;
 
 /**
+ * 类型转换
  * @author wang xiao
  * date 2022/10/10
  */
@@ -15,6 +16,6 @@ public class StandardTypeConverter implements TypeConverter {
 
 
     public static<T> T convert(Object obj, Class<T> type) {
-        return null;
+        return type.cast(obj);
     }
 }
