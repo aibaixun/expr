@@ -6,12 +6,16 @@ package com.aibaixun.expr.el.standard;
  */
 public enum TokenType {
     /**
-     *
+     * +
      */
     PLUS("+");
     private final String token;
 
     TokenType(String token) {
         this.token = token;
+    }
+
+    public String getToken() {
+        return token;
     }
 }
