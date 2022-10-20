@@ -4,6 +4,7 @@ import com.aibaixun.expr.Expr;
 import com.aibaixun.expr.ExprParserContext;
 import com.aibaixun.expr.ExprParserException;
 import com.aibaixun.expr.common.TemplateExprParser;
+import com.aibaixun.expr.el.standard.InternalElExpressionParser;
 
 /**
  * @author wang xiao
@@ -22,7 +23,7 @@ public class ElExprParser extends TemplateExprParser {
     }
     @Override
     protected ElExpr doParseExpression(String expression, ExprParserContext context) throws ExprParserException {
-        return null;
+        return (ElExpr) new InternalElExpressionParser(parserConfig).parseExpression(expression, context);
     }
 
     public ElExprParserConfig getParserConfig() {

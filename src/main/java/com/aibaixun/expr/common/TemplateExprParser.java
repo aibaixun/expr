@@ -75,7 +75,6 @@ public abstract class TemplateExprParser implements ExprParser {
         String prefix = context.getExpressionPrefix();
         String suffix = context.getExpressionSuffix();
         int startInx = 0;
-
         while (startInx < expression.length()) {
             int prefixInx = expression.indexOf(prefix,startInx);
             if (prefixInx >= startInx){
