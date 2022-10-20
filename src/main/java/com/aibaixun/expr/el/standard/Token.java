@@ -6,9 +6,31 @@ package com.aibaixun.expr.el.standard;
  */
  class Token {
 
+     TokenType tokenType;
     String data;
     int startPos;
     int endPos;
+
+    public Token(TokenType tokenType, int startPos, int endPos) {
+        this.tokenType = tokenType;
+        this.startPos = startPos;
+        this.endPos = endPos;
+    }
+
+    public Token(TokenType tokenType, String data, int startPos, int endPos) {
+        this.tokenType = tokenType;
+        this.data = data;
+        this.startPos = startPos;
+        this.endPos = endPos;
+    }
+
+    public TokenType getTokenType() {
+        return tokenType;
+    }
+
+    public void setTokenType(TokenType tokenType) {
+        this.tokenType = tokenType;
+    }
 
     public String getData() {
         return data;

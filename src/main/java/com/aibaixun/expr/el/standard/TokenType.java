@@ -5,14 +5,23 @@ package com.aibaixun.expr.el.standard;
  * date 2022/10/17
  */
 public enum TokenType {
+
+    INT,
+
+    LONG,
+
+    STRING,
     /**
      * +
      */
     PLUS("+");
-    private final String token;
+    private  String token;
 
     TokenType(String token) {
         this.token = token;
+    }
+
+    TokenType() {
     }
 
     public String getToken() {
