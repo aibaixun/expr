@@ -1,22 +1,31 @@
 package com.aibaixun.expr.el;
 
 import com.aibaixun.expr.Expr;
-import com.aibaixun.expr.ExprParser;
 import com.aibaixun.expr.ExprParserContext;
 import com.aibaixun.expr.ExprParserException;
+import com.aibaixun.expr.common.TemplateExprParser;
 
 /**
  * @author wang xiao
  * date 2022/10/11
  */
-public class ElExprParser implements ExprParser {
+public class ElExprParser extends TemplateExprParser {
+
+    private final ElExprParserConfig  parserConfig;
+
+    public ElExprParser() {
+        this.parserConfig = new ElExprParserConfig();
+    }
+
+    public ElExpr parseRaw(String expressionString) throws ExprParserException {
+        return this.doParseExpression(expressionString, null);
+    }
     @Override
-    public Expr parseExpression(String expression) throws ExprParserException {
+    protected ElExpr doParseExpression(String expression, ExprParserContext context) throws ExprParserException {
         return null;
     }
 
-    @Override
-    public Expr parseExpression(String expression, ExprParserContext context) throws ExprParserException {
-        return null;
+    public ElExprParserConfig getParserConfig() {
+        return parserConfig;
     }
 }

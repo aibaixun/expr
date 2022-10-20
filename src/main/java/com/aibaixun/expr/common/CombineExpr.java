@@ -3,7 +3,6 @@ package com.aibaixun.expr.common;
 import com.aibaixun.expr.ExprEvalContext;
 import com.aibaixun.expr.ExprEvalException;
 import com.aibaixun.expr.Expr;
-import com.aibaixun.expr.type.TypeValue;
 import com.aibaixun.expr.util.ExprUtil;
 
 import java.util.Objects;
@@ -44,7 +43,7 @@ public class CombineExpr implements Expr {
     @Override
     public <T> T getValue(Class<T> tClass) throws ExprEvalException {
         Object value  = getValue() ;
-        return ExprUtil.convertValue(null,new TypeValue(value),tClass);
+        return ExprUtil.convertValue(null,value,tClass);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class CombineExpr implements Expr {
     @Override
     public <T> T getValue(Object rootObj, Class<T> tClass) throws ExprEvalException {
         Object value  = getValue(rootObj) ;
-        return ExprUtil.convertValue(null,new TypeValue(value),tClass);
+        return ExprUtil.convertValue(null,value,tClass);
     }
 
     @Override
@@ -92,13 +91,13 @@ public class CombineExpr implements Expr {
     @Override
     public <T> T getValue(ExprEvalContext context, Class<T> tClass) throws ExprEvalException {
         Object value  = getValue(context) ;
-        return ExprUtil.convertValue(null,new TypeValue(value),tClass);
+        return ExprUtil.convertValue(null,value,tClass);
     }
 
     @Override
     public <T> T getValue(ExprEvalContext context, Object rootObj, Class<T> tClass) throws ExprEvalException {
         Object value  = getValue(context,rootObj) ;
-        return ExprUtil.convertValue(null,new TypeValue(value),tClass);
+        return ExprUtil.convertValue(null,value,tClass);
     }
 
     @Override
