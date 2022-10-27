@@ -4,6 +4,7 @@ import com.aibaixun.expr.Expr;
 import com.aibaixun.expr.ExprParser;
 import com.aibaixun.expr.ExprParserContext;
 import com.aibaixun.expr.ExprParserException;
+import com.aibaixun.expr.el.ElExprParser;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -172,5 +173,10 @@ public abstract class TemplateExprParser implements ExprParser {
             }
         }
         return suffixPosition == suffix.length();
+    }
+
+    public static void main(String[] args) {
+        Expr expr = new ElExprParser().parseExpression("hello {help{world}}",new TemplateExprParserContext("{","}"));
+        System.out.println(expr.toString());
     }
 }
