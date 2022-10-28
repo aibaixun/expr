@@ -174,9 +174,4 @@ public abstract class TemplateExprParser implements ExprParser {
         }
         return suffixPosition == suffix.length();
     }
-
-    public static void main(String[] args) {
-        Expr expr = new ElExprParser().parseExpression("hello {help{world}}",new TemplateExprParserContext("{","}"));
-        System.out.println(expr.toString());
-    }
 }
