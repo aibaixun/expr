@@ -121,7 +121,7 @@ public abstract class TemplateExprParser implements ExprParser {
             return -1;
         }
         Deque<CharBracket> stack = new ArrayDeque<>();
-        while (pos < maxLen) {
+        while (pos < maxLen && (!this.isSuffixHere(expression,pos,suffix) || !stack.isEmpty())) {
             if (isSuffixHere(expression,pos,suffix) && stack.isEmpty()) {
                 break;
             }
