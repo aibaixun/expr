@@ -2,6 +2,7 @@ package com.aibaixun.expr.el;
 
 import com.aibaixun.expr.ExprEvalContext;
 import com.aibaixun.expr.TypeConverter;
+import com.aibaixun.expr.common.StandardTypeConverter;
 
 /**
  * @author wang xiao
@@ -9,8 +10,14 @@ import com.aibaixun.expr.TypeConverter;
  */
 public class ElExprEvalContext implements ExprEvalContext {
 
+    private final TypeConverter typeConverter;
+
+    public ElExprEvalContext() {
+        this.typeConverter = new StandardTypeConverter();
+    }
+
     @Override
     public TypeConverter getTypeConverter() {
-        return null;
+        return typeConverter;
     }
 }
