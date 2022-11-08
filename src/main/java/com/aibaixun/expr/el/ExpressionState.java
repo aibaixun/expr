@@ -12,13 +12,18 @@ public class ExpressionState {
 
     private final Object rootObject;
 
-    public ExpressionState(ExprEvalContext relatedEvalContext, Object rootObject) {
-        this.relatedEvalContext = relatedEvalContext;
-        this.rootObject = rootObject;
+
+    public ExpressionState(ExprEvalContext relatedEvalContext) {
+        this(relatedEvalContext,relatedEvalContext.getRootObject());
     }
 
     public ExprEvalContext getRelatedEvalContext() {
         return relatedEvalContext;
+    }
+
+    public ExpressionState(ExprEvalContext relatedEvalContext, Object rootObject) {
+        this.relatedEvalContext = relatedEvalContext;
+        this.rootObject = rootObject;
     }
 
     public Object getRootObject() {

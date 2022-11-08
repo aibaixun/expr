@@ -12,7 +12,7 @@ public interface ElNode {
      * 获取 值
      * @param expressionState the expression state included the context
      * @return 值
-     * @throws ExprEvalException
+     * @throws ExprEvalException exception
      */
     Object getValue(ExpressionState expressionState) throws ExprEvalException;
 }
