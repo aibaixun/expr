@@ -1,5 +1,7 @@
 package com.aibaixun.expr;
 
+
+
 /**
  * 执行表达式上下文
  * @author wang xiao
@@ -12,4 +14,10 @@ public interface ExprEvalContext {
      * @return  instance of typeConverter
      */
     TypeConverter getTypeConverter();
+
+    /**
+     * 获取操作数据
+     * @return Object
+     */
+    Object getRootObject();
 }

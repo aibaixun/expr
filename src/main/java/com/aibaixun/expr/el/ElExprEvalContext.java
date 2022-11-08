@@ -10,6 +10,8 @@ import com.aibaixun.expr.common.StandardTypeConverter;
  */
 public class ElExprEvalContext implements ExprEvalContext {
 
+    private Object rotObject;
+
     private final TypeConverter typeConverter;
 
     public ElExprEvalContext() {
@@ -19,5 +21,11 @@ public class ElExprEvalContext implements ExprEvalContext {
     @Override
     public TypeConverter getTypeConverter() {
         return typeConverter;
+    }
+
+
+    @Override
+    public Object getRootObject() {
+        return rotObject;
     }
 }

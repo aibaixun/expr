@@ -4,6 +4,8 @@ import com.aibaixun.expr.Expr;
 import com.aibaixun.expr.ExprEvalContext;
 import com.aibaixun.expr.ExprEvalException;
 
+import java.util.Objects;
+
 /**
  * @author wang xiao
  * date 2022/10/11
@@ -16,6 +18,8 @@ public class ElExpr implements Expr {
 
     private ExprEvalContext exprEvalContext;
 
+    private volatile CompiledExpr compliedExpr;
+
     public ElExpr(String expression, ElNode ast) {
         this.expression = expression;
         this.ast = ast;
@@ -23,12 +27,25 @@ public class ElExpr implements Expr {
 
     @Override
     public String getExpression() {
-        return null;
+        return expression;
     }
 
     @Override
     public Object getValue() throws ExprEvalException {
-        return null;
+        CompiledExpr compliedExpr = this.compliedExpr;
+        if (Objects.nonNull(compliedExpr)){
+            try {
+                ExprEvalContext evalContext = getExprEvalContext();
+                return compliedExpr.getValue(evalContext.getRootObject(),evalContext);
+            }catch (ExprEvalException e){
+                throw new ElExprParserException("An exception occurred whilst eval a complied expression",e);
+            }
+        }
+
+        ExpressionState expressionState = new ExpressionState(exprEvalContext,exprEvalContext.getRootObject());
+        Object result = this.ast.getValue(expressionState);
+        checkCompile(expressionState);
+        return result;
     }
 
     @Override
@@ -108,6 +125,21 @@ public class ElExpr implements Expr {
 
     @Override
     public void writeValue(ExprEvalContext context, Object rootObj, Object value) {
+
+    }
+
+    public void setExprEvalContext(ExprEvalContext exprEvalContext) {
+        this.exprEvalContext = exprEvalContext;
+    }
+
+    public ExprEvalContext getExprEvalContext() {
+        if (Objects.isNull(expression)){
+            return new ElExprEvalContext();
+        }
+        return exprEvalContext;
+    }
+
+    private void  checkCompile(ExpressionState expressionState){
 
     }
 }
