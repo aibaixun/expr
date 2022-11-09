@@ -5,7 +5,6 @@ package com.aibaixun.expr.el.standard;
  * date 2022/10/17
  */
  class Token {
-
      TokenType tokenType;
     String data;
     int startPos;
