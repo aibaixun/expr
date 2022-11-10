@@ -18,7 +18,7 @@ import java.util.List;
  * @author wang xiao
  * date 2022/10/20
  */
-  class InternalElExpressionParser extends TemplateExprParser {
+public class InternalElExpressionParser extends TemplateExprParser {
 
      private final ElExprParserConfig  parserConfig;
 

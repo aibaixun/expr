@@ -6,5 +6,6 @@ package com.aibaixun.expr.el.standard;
  */
  class Tokenizer {
 
-
+ public Tokenizer(String token) {
+ }
 }
