@@ -1,12 +1,10 @@
 package com.aibaixun.expr.el.standard;
 
-import com.aibaixun.expr.Expr;
 import com.aibaixun.expr.ExprParserContext;
 import com.aibaixun.expr.ExprParserException;
 import com.aibaixun.expr.common.TemplateExprParser;
 import com.aibaixun.expr.el.ElExpr;
 import com.aibaixun.expr.el.ElExprParserConfig;
-import com.aibaixun.expr.el.ElNode;
 import com.aibaixun.expr.el.ast.ElNodeImpl;
 
 import java.util.ArrayDeque;
@@ -28,6 +26,9 @@ public class InternalElExpressionParser extends TemplateExprParser {
 
      private String expression = "";
 
+    private int tokenListLength;
+    private int tokenListPointer;
+
 
     public InternalElExpressionParser(ElExprParserConfig parserConfig) {
         this.parserConfig = parserConfig;
@@ -37,10 +38,17 @@ public class InternalElExpressionParser extends TemplateExprParser {
     protected ElExpr doParseExpression(String expression, ExprParserContext context) throws ExprParserException {
         this.expression = expression;
         Tokenizer tokenizer = new Tokenizer(expression);
+        this.tokenList = tokenizer.process();
+        this.tokenListLength = this.tokenList.size();
+        this.tokenListPointer = 0;
+        this.constructedElNodes.clear();
+
         return new ElExpr(expression,null);
     }
 
     public ElExprParserConfig getParserConfig() {
         return parserConfig;
     }
+
+
 }

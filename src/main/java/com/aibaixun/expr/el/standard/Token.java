@@ -23,6 +23,11 @@ package com.aibaixun.expr.el.standard;
         this.endPos = endPos;
     }
 
+    public Token(TokenType tokenKind, char[] tokenData, int startPos, int endPos) {
+        this(tokenKind, startPos, endPos);
+        this.data = new String(tokenData);
+    }
+
     public TokenType getTokenType() {
         return tokenType;
     }
